@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(1000))
+    data = db.Column(db.String(1000)) ##Stock name
     #date = db.Column(db.DateTime(timezone=True), default=func.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     price = db.Column(db.Float)

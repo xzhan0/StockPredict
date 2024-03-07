@@ -3,7 +3,9 @@ from flask_login import login_required, current_user
 from . import db
 from .models import Note
 from . import db
+import random
 import json
+import yfinance as yf
 
 views = Blueprint('views',__name__)
 
@@ -12,21 +14,16 @@ views = Blueprint('views',__name__)
 def home():
     if request.method == 'POST':
         note =request.form.get('note')
-        if note[0] == ' ':
-            note = note[1:]
-        flag = True
-        for char in note:
-            if char.isalpha() and not char.isupper():
-                flag = False
-            if not char.isalpha():
-                flag = False
-        if len(note) < 1 or len(note) > 4 or not flag:
-            flash('Stock Code Error! Stock code should not be longer than 4 characters or less than 1 character', category='error')
-        else:
-            new_note = Note(data=note, user_id=current_user.id, price=0.00)
+        try:
+            stockCode = note
+            stock = yf.Ticker(stockCode)
+            note = note.upper()
+            new_note = Note(data=note, user_id=current_user.id, price=getPrice(note))
             db.session.add(new_note)
             db.session.commit()
-            flash('Stock added!', category='success')
+            flash('Stock added!', category='success')           
+        except:
+            flash('Stock Code Error! The stock code doesn\'t exists', category='error')
 
     return render_template("home.html", user=current_user)
 
@@ -42,3 +39,24 @@ def delete_note():
             db.session.commit()
             flash('Stock removed!', category='success')
     return jsonify({})
+
+@views.route('/refresh-stock', methods=['POST'])
+def refresh_stock():
+    user = current_user
+    for note in user.notes:
+        stockCode = note.data
+        stock = yf.Ticker(stockCode)
+        temp = stock.history()
+        price = temp['Close'].iloc[-1]
+        price = round(price, 2)
+        note.price = price
+        db.session.commit()
+    return jsonify({})
+
+def getPrice(code):
+    stockCode = code
+    stock = yf.Ticker(stockCode)
+    temp = stock.history()
+    price = temp['Close'].iloc[-1]
+    price = round(price, 2)
+    return price
