@@ -76,11 +76,14 @@ def stock_detail(symbol):
     data = df.values.tolist()
     for i in range(0,len(data)):
         data[i] = round(data[i],2)
-    #data = {'dates': df[0].tolist(), 'prices': df['']}
-    print(data)
-    datesss = df.head()
-    print(datesss)
-    return render_template("stock.html", user = current_user, stock = stock, data=data)
+    index = df.index.tolist()
+    
+    #
+    for i in range(0,len(index)):
+        index[i] = str(index[i])[0:10]
+    #
+
+    return render_template("stock.html", user = current_user, stock = stock, data=data, date = index)
 
 ### get the real time stock price
 @auth.route('/get_stock_data',methods=['POST'])
@@ -91,11 +94,9 @@ def get_stock_data():
 ##
 
 TODAY = date.today().strftime("%Y-%m-%d")
-START = date.today() - timedelta(days=42)
+START = date.today() - timedelta(days=56)
 
 START = START.strftime("%Y-%m-%d")
 def get_stock_price_thrend(stock):
     df = yf.download(stock, start=START, end=TODAY)["Close"]
-    
-    print(df)
     return df

@@ -3,9 +3,9 @@
 {% block content%}
 <!-- data is the stock price over year -->
 
-<h1 style="font-size: 34px;"> Welcome to the stock page of {{stock.data}}, current price per share is <span style="color: green;"> ${{stock.price}} </span></h1>
+<h1 style="font-size: 34px;"> This is the page of {{stock.data}}, current stock price per share is <span style="color: green;"> ${{stock.price}} </span></h1>
 
-<h1>Price trend of recent 30 bussiness days</h1>
+<h1>Price trend of recent 8 weeks</h1>
         <!-- char.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script> 
 <div>
@@ -15,11 +15,10 @@
 
 <script>
     const ctx = document.getElementById('chart');
-    const xlabels = [];
-    for (var i = 1; i <= 30; i++) {
-      var d = "day"+i;
-      xlabels.push(d);
-    } 
+    // for (var i = 1; i <= 30; i++) {
+    //   var d = "day"+i;
+    //   xlabels.push(d);
+    // } 
     var price = '{{ data }}';
     price = price.substring(1, price.length - 1);
     var temp = price.split(',');
@@ -28,11 +27,22 @@
         return parseFloat(parsedValue); // Parse each element as an ddouble
     });
     //window.alert(price);
+    const xlabels = [];
+    var x_coordinate = '{{ date }}';
+    
+    //x_coordinate = x_coordinate.substring(1, price.length - 1);
+    temp = x_coordinate.split(';,');
+    //window.alert(temp);
+    x_coordinate = temp.map(function(x) {
+        var d = x.substring(11,16)
+        return d; // Parse each element as an ddouble
+    });
+
     new Chart(ctx, {
       type: 'line',
       //type: 'bar',
       data: {
-        labels: xlabels,
+        labels: x_coordinate,
         datasets: [{
           label: 'stock price',
           data: price,
