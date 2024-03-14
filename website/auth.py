@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -35,7 +36,7 @@ def login():
 def logout():
     if current_user.is_authenticated:
         logout_user()
-        flash('Logout succeed！', category='success')
+        flash('Logout succeed!', category='success')
         return redirect(url_for('auth.login'))
     else:
         flash('You have already logged out!', category='error')
@@ -66,12 +67,35 @@ def sign_up():
 
     return render_template("sign_up.html", user = current_user)
 
-@auth.route('/stock')
-def stock():
-    return render_template("stock.html", user = current_user)
+@auth.route('/stock/<symbol>')
+def stock_detail(symbol):
+    for note in current_user.notes:
+        if note.data == symbol:
+            stock = note
+    df = get_stock_price_thrend(symbol)
+    data = df.values.tolist()
+    for i in range(0,len(data)):
+        data[i] = round(data[i],2)
+    #data = {'dates': df[0].tolist(), 'prices': df['']}
+    print(data)
+    datesss = df.head()
+    print(datesss)
+    return render_template("stock.html", user = current_user, stock = stock, data=data)
+
 ### get the real time stock price
 @auth.route('/get_stock_data',methods=['POST'])
 def get_stock_data():
     ticker = request.get_json()['ticker']
     data = yf.Ticker(ticker).history(period='1y')
     return jsonify({'currentPrice': data.iloc[-1].Close, 'openPrice': data.iloc[-1].Open})
+##
+
+TODAY = date.today().strftime("%Y-%m-%d")
+START = date.today() - timedelta(days=42)
+
+START = START.strftime("%Y-%m-%d")
+def get_stock_price_thrend(stock):
+    df = yf.download(stock, start=START, end=TODAY)["Close"]
+    
+    print(df)
+    return df

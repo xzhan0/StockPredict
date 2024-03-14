@@ -1,15 +1,59 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 
 {% block content%}
+<!-- data is the stock price over year -->
 
-    <form id="add-ticker-form">
-        <input type="text" id="new-ticker" class="form-control" placeholder="Add Stock Code Here" required>
-        <br />
-        <button type="submit" class="btn btn-primary">Add</button>
-    </form>
-    <p id="timer">Next update in <span id="counter"></span> seconds</p>
-    <div id="tickers-grid"></div>
+<h1 style="font-size: 34px;"> Welcome to the stock page of {{stock.data}}, current price per share is <span style="color: green;"> ${{stock.price}} </span></h1>
 
+<h1>Price trend of recent 30 bussiness days</h1>
+        <!-- char.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script> 
+<div>
+    <canvas id="chart" width="400" height="350"></canvas>
+</div>
+
+
+<script>
+    const ctx = document.getElementById('chart');
+    const xlabels = [];
+    for (var i = 1; i <= 30; i++) {
+      var d = "day"+i;
+      xlabels.push(d);
+    } 
+    var price = '{{ data }}';
+    price = price.substring(1, price.length - 1);
+    var temp = price.split(',');
+    price = temp.map(function(x) {
+        var parsedValue = parseFloat(x.trim());
+        return parseFloat(parsedValue); // Parse each element as an ddouble
+    });
+    //window.alert(price);
+    new Chart(ctx, {
+      type: 'line',
+      //type: 'bar',
+      data: {
+        labels: xlabels,
+        datasets: [{
+          label: 'stock price',
+          data: price,
+          borderWidth: 1,
+          backgroundColor: [
+      'rgba(0, 128, 0, 1)'
+        ],
+        borderColor: [
+      'rgb(0, 128, 0)',
+    ]
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+</script>
 {% endblock %}
 
 

@@ -4,16 +4,25 @@
 <h2 align="center">Welcome to the home page, {{ user.email.split('@')[0] }}!</h1>
 <h2 align="center">Your Selected Stock List</h1>
 <button class="btn btn-primary" onClick="window.open('/', '_self');">Refresh Stock Price</button>
-<ul class="list-group list-group-flush" id="notes">
+<!-- <ul class="list-group list-group-flush" id="notes"> -->
+    <div class="stock-container">
     {% for note in user.notes %}
-    <li class="list-group-item" ><b style="font-size:30px;">{{ note.data }}</b>
+    <!-- <li class="list-group-item" ><b style="font-size:30px;">{{ note.data }}</b>
         <button type="button" class="close" onclick="deleteNote('{{note.id}}')"> 
             <span aria-hidden="true">&times;</span>
         </button>
         <p>Price: ${{ note.price }}</p>
-    </li> 
+    </li>  -->
+
+        <div class="stock" ><a style="font-size:30px;" href="/stock/{{note.data}}">{{ note.data }}</a>
+            <button type="button" class="close" onclick="deleteNote('{{note.id}}')"> 
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="stock-price"> ${{ note.price }}</p>
+        </div> 
     {% endfor %}
-</ul>
+</div>
+<!-- </ul> -->
 <form method="POST">
     <textarea name="note" id="note" class="form-control"></textarea>
     <br />

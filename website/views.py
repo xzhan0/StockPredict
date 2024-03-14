@@ -6,6 +6,11 @@ from . import db
 import random
 import json
 import yfinance as yf
+from datetime import date
+import streamlit as st
+import prophet
+from prophet.plot import plot_plotly
+from plotly import graph_objs as go
 
 views = Blueprint('views',__name__)
 
@@ -60,3 +65,16 @@ def getPrice(code):
     price = temp['Close'].iloc[-1]
     price = round(price, 2)
     return price
+## stock price map
+# START = "2018-01-01"
+# TODAY = date.today().strftime("%Y-%m-%d")
+
+# def load_data(ticker):
+#     data = yf.download(ticker, START, TODAY)
+#     data.reset_index(inplace=True)
+#     return data
+
+# def init_stock_page(ticker):
+#     data_load_state = st.text("Loading data...")
+#     data = load_data("GOOG")
+#     data_load_state.text("Loading data...Done!")
