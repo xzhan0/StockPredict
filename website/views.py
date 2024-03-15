@@ -3,7 +3,6 @@ from flask_login import login_required, current_user
 from . import db
 from .models import Note
 from . import db
-import random
 import json
 import yfinance as yf
 from datetime import date
@@ -65,16 +64,3 @@ def getPrice(code):
     price = temp['Close'].iloc[-1]
     price = round(price, 2)
     return price
-## stock price map
-# START = "2018-01-01"
-# TODAY = date.today().strftime("%Y-%m-%d")
-
-# def load_data(ticker):
-#     data = yf.download(ticker, START, TODAY)
-#     data.reset_index(inplace=True)
-#     return data
-
-# def init_stock_page(ticker):
-#     data_load_state = st.text("Loading data...")
-#     data = load_data("GOOG")
-#     data_load_state.text("Loading data...Done!")

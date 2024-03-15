@@ -3,49 +3,44 @@
 {% block content%}
 <!-- data is the stock price over year -->
 
-<h1 style="font-size: 34px;"> This is the page of {{stock.data}}, current stock price per share is <span style="color: green;"> ${{stock.price}} </span></h1>
-
-<h1>Price trend of recent 8 weeks</h1>
-        <!-- char.js -->
+<h1> Welcome to the stock page of <span style="color:#ff4113;">{{name}}({{stock.data}})</span></h1>
+<h1 style="font-size: 30px;">Current stock price per share is <span style="color: green;"> ${{stock.price}}</span>, here's the price trend of recent 8 weeks</h1>
+<!-- char.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script> 
+
 <div>
     <canvas id="chart" width="400" height="350"></canvas>
 </div>
 
 
 <script>
-    const ctx = document.getElementById('chart');
-    // for (var i = 1; i <= 30; i++) {
-    //   var d = "day"+i;
-    //   xlabels.push(d);
-    // } 
-    var price = '{{ data }}';
-    price = price.substring(1, price.length - 1);
-    var temp = price.split(',');
-    price = temp.map(function(x) {
+    const ctx = document.getElementById('chart')
+
+    // X coordinate comes from date
+    var xlabels = '{{ date }}';
+    var temp = xlabels.split(';,');
+    xlabels = temp.map(function(x) {
+        var d = x.substring(11,16)
+        return d; 
+    });
+    // Y coordinate comes from price
+    var ylabels = '{{ price }}';
+    ylabels = ylabels.substring(1, ylabels.length - 1);
+    temp = ylabels.split(',');
+    ylabels = temp.map(function(x) {
         var parsedValue = parseFloat(x.trim());
-        return parseFloat(parsedValue); // Parse each element as an ddouble
+        return parseFloat(parsedValue); // Parse each element as an double
     });
     //window.alert(price);
-    const xlabels = [];
-    var x_coordinate = '{{ date }}';
-    
-    //x_coordinate = x_coordinate.substring(1, price.length - 1);
-    temp = x_coordinate.split(';,');
-    //window.alert(temp);
-    x_coordinate = temp.map(function(x) {
-        var d = x.substring(11,16)
-        return d; // Parse each element as an ddouble
-    });
-
+    //The Chart window constructor
     new Chart(ctx, {
       type: 'line',
       //type: 'bar',
       data: {
-        labels: x_coordinate,
+        labels: xlabels,
         datasets: [{
           label: 'stock price',
-          data: price,
+          data: ylabels,
           borderWidth: 1,
           backgroundColor: [
       'rgba(0, 128, 0, 1)'
