@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Team</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ff4113;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .member {
+            margin-bottom: 20px;
+            padding: 30px;
+            background-color: rgb(35, 156, 236);
+            border-radius: 8px;
+        }
+
+        .member h2 {
+            margin-top: 0;
+        }
+
+        .member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .member p {
+            margin: 5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="member">
+        <img src="{{url_for('static', filename='uiuc.jpg')}}" alt="Xianyang Zhan" />
+        <h2>Xianyang Zhan</h2>
+        <p>Position: Webapp Fullstack Development</p>
+        <p>Email: zhan39@illinois.edu</p>
+    </div>
+    
+    <div class="member">
+        <img src="{{url_for('static', filename='uiuc.jpg')}}" alt="Melissa Shi" />
+        <h2>Melissa Shi</h2>
+        <p>Position: Frontend Development</p>
+        <p>Email: mshi24@illinois.edu</p>
+    </div>
+    
+    <div class="member">
+        <img src="{{url_for('static', filename='uiuc.jpg')}}" alt="Hangao Zhang" />
+        <h2>Hangao Zhang</h2>
+        <p>Position: Prediction Model Development</p>
+        <p>Email: hangaoz2@illinois.edu</p>
+    </div>
+    
+    <div class="member">
+        <img src="{{url_for('static', filename='uiuc.jpg')}}" alt="Allen Chen" />
+        <h2>Allen Chen</h2>
+        <p>Position: Prediction Model Development</p>
+        <p>Email: yilunc3@illinois.edu</p>
+    </div>
+    <a href="/">Back to welcome page</a>
+</div>
+
+</body>
+</html>

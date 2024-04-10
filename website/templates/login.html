@@ -1,20 +1,57 @@
 {% extends "base.html" %} {% block title %}Login{% endblock %}
 
 {% block content%}
+<link href='http://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-<form method="POST">
-    <h3 align="center">Login</h3>
-    <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email here">
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password here">
-    </div>
+<div class="wrapper">
+    <form method="POST">
+        <h1>Login</h1>
+        <div class="input-box">
+            <input type="email" placeholder="Enter your email here" id="email" name="email" >
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+            <input type="password" id="password" name="password" placeholder="Enter your password here">
+            <i class='bx bxs-lock'></i>
+        </div>
 
-    <br />
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+        <button type="submit" class="btn">Login</button>
+        <div class="register-link">
+            <p>Don't have an account? <a href="/sign-up">Register</a></p>
+        </div>
+        <div class="register-link">
+          <p>Bring me back to <a href="/">Welcome Page</a></p>
+      </div>
+    </form>
+</div>
+<div id="particles-js"></div> <!-- Added the particles.js container -->		
+<script>
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 80,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        size: {
+          value: 1.5,
+          random: true,
+          anim: {
+            enable: false,
+            speed: 40,
+            size_min: 0.1,
+            sync: false
+          }
+        },
+      },
+      interactivity: {
+      },
+    });
+  </script>
 
 {% endblock %}
+

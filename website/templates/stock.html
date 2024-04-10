@@ -19,10 +19,18 @@
     // X coordinate comes from date
     var xlabels = '{{ date }}';
     var temp = xlabels.split(';,');
+    
     xlabels = temp.map(function(x) {
-        var d = x.substring(11,16)
+        //var d = x.substring(11,16)
+        var d = x.replace(";","");
+        var d = d.replace("&#39","");
+        var d = d.replace("&#39","");
+        var d = d.replace("[","");
+        var d = d.replace("]","");
+        var d = d.replace(";","");
         return d; 
     });
+    //window.alert(xlabels);
     // Y coordinate comes from price
     var ylabels = '{{ price }}';
     ylabels = ylabels.substring(1, ylabels.length - 1);

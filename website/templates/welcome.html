@@ -1,0 +1,89 @@
+<!-- new code -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static', filename='welcome.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- Added particles.js -->
+ 
+
+  <title>Stock Prediction Homepage</title>
+</head>
+<body>
+  <header>
+    <!-- <div class="brand-name">Stock Prediction</div> -->
+    <nav>
+      <ul class="menu">
+        <li><a href="">Welcome</a></li>
+        <li><a href="login">Login</a></li>
+        <li><a href="sign-up">Sign Up</a></li>
+        <!-- <li><a href="register.html">Signout</a></li> --> 
+      </ul>
+      <i class="fa-solid fa-bars" id="toggle"></i>
+    </nav>
+  </header>
+
+  <section class="home">
+    <!-- Particles container -->
+    <div id="particles-js"></div> <!-- Added the particles.js container -->
+    
+    <div class="home-content">
+      <h1>Welcome to Stock Prediction</h1>
+      <p>Unlock the power of precision with Stock Prediction, the cutting-edge stock prediction platform designed to navigate the complexities of the financial markets. Our advanced algorithms and AI-driven insights equip investors with real-time predictions, trend analyses, and actionable intelligence. Whether you're a seasoned trader or just starting, our intuitive interface and expert recommendations simplify investment decisions, helping you capitalize on opportunities with confidence. Join us to transform your investment strategy and achieve unparalleled market success.</p>
+      
+      <a href='member'>
+        <button class="learn-more-btn">Learn About Us!</button>
+      </a>
+      
+    </div>
+  </section>
+
+  <script>
+    gsap.from('.home-content', { duration: 1, y: '-30%', opacity: 0, ease: 'bounce' });
+    document.querySelector('.learn-more-btn').addEventListener('mouseover', function() {
+      gsap.to('.learn-more-btn', { duration: 0.5, backgroundColor: '#ffffff', color: '#000000' });
+    });
+    document.querySelector('.learn-more-btn').addEventListener('mouseout', function() {
+      gsap.to('.learn-more-btn', { duration: 0.5, backgroundColor: 'transparent', color: '#ffffff' });
+    });
+<!-- Added particles.js -->
+    particlesJS('particles-js', {
+  particles: {
+    color: {
+      value: '#8b8b8b' 
+    },
+    number: {
+      value: 80,
+      density: {
+        enable: true,
+        value_area: 800
+      }
+    },
+    size: {
+      value: 2, 
+      random: true,
+      anim: {
+        enable: false,
+        speed: 40,
+        size_min: 0.1,
+        sync: false
+      }
+    },
+
+  },
+  interactivity: {
+
+  },
+
+});
+
+  </script>
+</body>
+</html>
+
+</html> 
+

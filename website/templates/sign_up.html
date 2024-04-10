@@ -1,23 +1,64 @@
 {% extends "base.html" %} {% block title %}Sign Up{% endblock %}
 
 {% block content%}
-<!-- <h1>This is the Sign Up page</h1> -->
-<form method="POST">
-    <h3 align="center">Sign Up</h3>
-    <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email here">
-    </div>
-    <div class="form-group">
-        <label for="password1">Password</label>
-        <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter your password here">
-    </div>
-    <div class="form-group">
-        <label for="password2">Confirm Password</label>
-        <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm your password here">
-    </div>
+<link href='http://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-    <br />
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="wrapper">
+    <form method="POST">
+        <h1>Register</h1>
+        <div class="input-box">
+            <input type="email" placeholder="Enter your email here" id="email" name="email" >
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+            <input type="password" id="password1" name="password1" placeholder="Enter your password here">
+            <i class='bx bxs-lock'></i>
+        </div>
+
+        <div class="input-box">
+            <input type="password" id="password2" name="password2" placeholder="Confirm your password here">
+            <i class='bx bxs-lock'></i>
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+        <div class="register-link">
+            <p>Already have an account? <a href="/login">Login</a></p>
+        </div>
+        <div class="register-link">
+          <p>Bring me back to<a href="/">Welcome Page</a></p>
+      </div>
+    </form>
+</div>
+
+<div id="particles-js"></div> <!-- Added the particles.js container -->		
+<script>
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 80,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        size: {
+          value: 1.5,
+          random: true,
+          anim: {
+            enable: false,
+            speed: 40,
+            size_min: 0.1,
+            sync: false
+          }
+        },
+      },
+      interactivity: {
+      },
+    });
+  </script>
+
 {% endblock %}
+
+

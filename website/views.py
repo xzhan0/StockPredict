@@ -13,7 +13,7 @@ from plotly import graph_objs as go
 
 views = Blueprint('views',__name__)
 
-@views.route('/', methods=['GET','POST'])
+@views.route('/home', methods=['GET','POST'])
 @login_required
 def home():
     if request.method == 'POST':
